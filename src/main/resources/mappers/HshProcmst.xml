@@ -34,7 +34,7 @@
 		REMARK = #{remark},
 		USE_FLAG = #{use_Flag},
 		PROC_EMP_ID = #{proc_Emp_Id},
-		PROC_UPDATE = GETDATE()
+		PROC_UPDATE = FORMAT(GETDATE(), 'yyyy-MM-dd')
 		WHERE PROC_CD = #{proc_Cd}
 	</update>
 	<update id="DelDateProc" parameterType="Procmst">
