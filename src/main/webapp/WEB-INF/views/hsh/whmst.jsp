@@ -72,7 +72,7 @@
 
 
 
-
+			<!-- 창고 추가 -->
 			<div class="row">
 				<div class="col-lg-12">
 
@@ -88,43 +88,53 @@
 								<div class="modal-dialog modal-dialog-centered">
 									<div class="modal-content">
 										<div class="modal-header">
-											<h5 class="modal-title">공정등록</h5>
+											<h5 class="modal-title">창고등록</h5>
 											<button type="button" class="btn-close"
 												data-bs-dismiss="modal" aria-label="Close"></button>
 										</div>
 										<div class="modal-body">
-											<div class="form-check form-switch">
-												<label class="form-check-label" for="flexSwitchCheckDefault">사용여부</label><input
+											<div class="form-check">
+												<label class="form-check-label" for="defaultCheck1">사용여부</label>
+												<input name="USE_FLAG"
 													class="form-check-input" type="checkbox"
-													id="flexSwitchCheckDefault">
+													id="defaultCheck1">
 											</div>
 
 											<div class="row mb-3">
-												<label for="inputText" class="col-sm-2 col-form-label">공정명</label>
+												<label for="inputText" class="col-sm-2 col-form-label">창고코드</label>
 												<div class="col-sm-8">
-													<input type="text" class="form-control">
+													<input name="WH_CD" type="text" class="form-control">
 												</div>
 											</div>
 
 											<div class="row mb-3">
-												<label for="inputPassword" class="col-sm-2 col-form-label">비고</label>
-												<div class="col-sm-10">
-													<textarea class="form-control" style="height: 100px"></textarea>
+												<label for="inputText" class="col-sm-2 col-form-label">창고명</label>
+												<div class="col-sm-8">
+													<input name="WH_NM" type="text" class="form-control">
 												</div>
 											</div>
+
+											<div class="row mb-3">
+												<label for="inputPassword" class="col-sm-2 col-form-label">설명</label>
+												<div class="col-sm-10">
+													<textarea name="REMARK" class="form-control" style="height: 100px"></textarea>
+												</div>
+											</div>
+
 
 											<div class="row mb-3">
 												<label for="inputText" class="col-sm-3 col-form-label">담당자ID</label>
 												<div class="col-sm-8">
-													<input type="text" class="form-control">
+													<input name="WH_EMP_ID" type="text" class="form-control">
 												</div>
-											</div>
+											</div>	
 
+											
 										</div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-secondary"
 												data-bs-dismiss="modal">닫기</button>
-											<button type="button" class="btn btn-primary">등록</button>
+											<button type="button" id="NewWhmst" class="btn btn-primary">등록</button>
 										</div>
 									</div>
 								</div>
@@ -133,49 +143,48 @@
 
 
 
-
+							<!-- 창고 수정 관리 삭제 -->
 							<div class="modal fade" id="verticalycentered1" tabindex="-1">
 								<div class="modal-dialog modal-dialog-centered">
 									<div class="modal-content">
 										<div class="modal-header">
-											<h5 class="modal-title">공정</h5>
+											<h5 class="modal-title">창고</h5>
 											<button type="button" class="btn-close"
 												data-bs-dismiss="modal" aria-label="Close"></button>
 										</div>
 										<div class="modal-body">
 
 
-											<div class="form-check form-switch">
-												<label class="form-check-label" for="flexSwitchCheckDefault">사용여부</label>
-												<input class="form-check-input" type="checkbox"
-													id="flexSwitchCheckDefault">
+											<div class="form-check">
+												<input name="USE_FLAG" class="form-check-input" type="checkbox" value="1" id="defaultCheck1">
+												<label class="form-check-label" for="defaultCheck1">사용여부</label>
 											</div>
 
 											<div class="row mb-3">
-												<label class="col-sm-3 col-form-label">공정코드</label>
+												<label class="col-sm-3 col-form-label">창고코드</label>
 												<div class="col-sm-7">
-													<p>15004</p>
+													<p id="WH_CD"></p>
 												</div>
 											</div>
 
 											<div class="row mb-3">
-												<label for="inputText" class="col-sm-2 col-form-label">공정명</label>
+												<label for="inputText" class="col-sm-2 col-form-label">창고명</label>
 												<div class="col-sm-8">
-													<input type="text" class="form-control">
+													<input type="text" class="form-control" name="WH_NM">
 												</div>
 											</div>
 
 											<div class="row mb-3">
 												<label class="col-sm-3 col-form-label">등록날짜</label>
 												<div class="col-sm-5">
-													<p>200-14-45</p>
+													<p id="WH_REGDATE">200-14-45</p>
 												</div>
 											</div>
 
 											<div class="row mb-3">
 												<label class="col-sm-3 col-form-label">수정날짜</label>
 												<div class="col-sm-5">
-													<p>200-14-45</p>
+													<p id="WH_UPDATE"></p>
 												</div>
 											</div>
 
@@ -184,14 +193,14 @@
 											<div class="row mb-3">
 												<label for="inputPassword" class="col-sm-2 col-form-label">비고</label>
 												<div class="col-sm-10">
-													<textarea class="form-control" style="height: 100px"></textarea>
+													<textarea name="REMARK" class="form-control" style="height: 100px"></textarea>
 												</div>
 											</div>
 
 											<div class="row mb-3">
 												<label for="inputText" class="col-sm-3 col-form-label">담당자ID</label>
 												<div class="col-sm-8">
-													<input type="text" class="form-control">
+													<input type="text" class="form-control" name="WH_EMP_ID">
 												</div>
 											</div>
 
@@ -199,7 +208,8 @@
 										<div class="modal-footer">
 											<button type="button" class="btn btn-secondary"
 												data-bs-dismiss="modal">닫기</button>
-											<button type="button" class="btn btn-primary">수정</button>
+											<button type="button" id="chProcmst" class="btn btn-primary">수정</button>
+											<button type="button" id="delProcmst" class="btn btn-primary">삭제</button>
 										</div>
 									</div>
 								</div>
@@ -218,11 +228,9 @@
 									<div class="search-bar">
 										<form class="search-form d-flex align-items-center"
 											method="POST" action="#">
-											<input type="text" name="query" placeholder="공정코드/명"
-												title="Enter search keyword">
-											<button type="submit" title="Search">
-												<i class="bi bi-search"></i>
-											</button>
+											<input type="text" id="searchInput" name="query"
+												placeholder="창고코드/명" title="Enter search keyword">
+
 										</form>
 									</div>
 									<!-- End Search Bar -->
@@ -232,12 +240,13 @@
 
 								</div>
 								<div class="datatable-container">
-									<table class="table datatable datatable-table datatable-table">
+									<table id="processTable"
+										class="table datatable datatable-table datatable-table">
 										<thead>
 											<tr>
 												<th><b>N</b>o.</th>
-												<th>공정코드</th>
-												<th>공정명</th>
+												<th>창고코드</th>
+												<th>창고명</th>
 												<th>설명</th>
 												<th>담당자</th>
 												<th>사용여부</th>
@@ -245,39 +254,29 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td>10</td>
-												<td><button type="button"
-														class="btn btn-outline-primary" data-bs-toggle="modal"
-														data-bs-target="#verticalycentered1">1001312</button></td>
-												<td>Monceau-sur-Sambre</td>
-												<td>반죽을 하자</td>
-												<td>김반죽</td>
-												<td>사용</td>
-											</tr>
+											<c:forEach var="Whmst" items="${WhmstsList}"
+												varStatus="status">
+												<tr>
+													<td>${status.index + 1}</td>
 
-											<tr>
-												<td>10</td>
-												<td><button type="button"
-														class="btn btn-outline-primary" data-bs-toggle="modal"
-														data-bs-target="#verticalycentered1">1001312</button></td>
-												<td>Monceau-sur-Sambre</td>
-												<td>반죽을 하자</td>
-												<td>김반죽</td>
-												<td>사용</td>
-											</tr>
+													<td><button type="button"
+															class="btn btn-outline-primary edit-process-btn" data-bs-toggle="modal"
+															data-bs-target="#verticalycentered1"
+															data-proc-id="${Whmst.WH_CD}">${Whmst.WH_CD}</button></td>
 
-											<tr>
-												<td>10</td>
-												<td><button type="button"
-														class="btn btn-outline-primary" data-bs-toggle="modal"
-														data-bs-target="#verticalycentered1">1001312</button></td>
-												<td>Monceau-sur-Sambre</td>
-												<td>반죽을 하자</td>
-												<td>김반죽</td>
-												<td>사용</td>
-											</tr>
-
+													<td>${Whmst.WH_NM}</td>
+													<td>${Whmst.REMARK}</td>
+													<td>${Whmst.WH_EMP_ID}</td>
+													<td><c:choose>
+															<c:when test="${Whmst.USE_FLAG == 1}">
+												            사용
+												        </c:when>
+															<c:otherwise>
+												            비사용
+												        </c:otherwise>
+														</c:choose></td>
+												</tr>
+											</c:forEach>
 										</tbody>
 									</table>
 								</div>
@@ -346,8 +345,185 @@
 	<script src="assets/vendor/tinymce/tinymce.min.js"></script>
 	<script src="assets/vendor/php-email-form/validate.js"></script>
 	<script type="text/javascript">
+		//=====================공정정보 가져오기======================
+		$(document).ready(function() {
+			$('.edit-process-btn').on('click', function() {
+				var procId = $(this).data('proc-id');
+
+				$.ajax({
+					url : 'procmstDetails', // 서버의 URL을 지정해야 합니다.
+					type : 'GET',
+					data : {
+						'id' : procId
+					}, // 서버로 보낼 데이터
+					dataType : 'json', // 응답 받을 데이터의 타입
+					success : function(data) {
+						// 모달의 입력 필드에 공정 정보를 채움
+						
+						console.log("Use Flag:", data.use_Flag);
+					    
+						$('#procCode').text(data.proc_Cd);
+						$('#verticalycentered1 input[name="proc_Nm"]').val(data.proc_Nm);
+						$('#proc_Regdate').text(data.proc_Regdate);
+						$('#proc_Update').text(data.proc_Update);
+						$('#verticalycentered1 textarea[name="remark"]').val(data.remark);
+						$('#verticalycentered1 input[name="proc_Emp_Id"]').val(data.proc_Emp_Id);
+						
+						 if(data.use_Flag === 1) {
+			                    $('#verticalycentered1 input[name="use_Flag"]').prop('checked', true);
+			                } else {
+			                    $('#verticalycentered1 input[name="use_Flag"]').prop('checked', false);
+			                }
+						
+						// 모달을 열음
+						$('#processModal').modal('show');
+					},
+					error : function(xhr, status, error) {
+						console.error("AJAX Error: " + status + error);
+					}
+				});
+			});
+		});
 		
+		//=====================공정수정=========================
+		 $(document).on('click','#chProcmst', function() {
+		        // 사용여부
+				var use_Flag = $('#verticalycentered1 input[name="use_Flag"]').is(':checked') ? 1 : 0;
+    			var procCode = $('#procCode').text();
+    			var proc_Nm = $('#verticalycentered1 input[name="proc_Nm"]').val(); // 수정된 부분
+    			var remark = $('#verticalycentered1 textarea[name="remark"]').val();
+   				var proc_Emp_Id = $('#verticalycentered1 input[name="proc_Emp_Id"]').val(); // 수정된 부분
+		        
+				console.log("Use Flag:", use_Flag);
+				console.log("proc_Nm:", proc_Nm);
+				console.log("proc_Emp_Id:", proc_Emp_Id);
+
+
+		        // AJAX 요청을 통해 서버에 데이터 전송
+		        $.ajax({
+		            url: 'updateProc', // 요청을 처리할 서버의 URL
+		            type: 'POST',
+		            data: {
+		                'use_Flag': use_Flag, 
+		                'proc_Cd': procCode, 
+		                'proc_Nm': proc_Nm ,
+		                'remark': remark,
+		                'proc_Emp_Id': proc_Emp_Id 
+		            },
+		            dataType: 'text',
+		            success: function(response) {
+		            	if (response === 'success') {
+		                    alert('공정정보가 성공적으로 변경되었습니다');
+		                    location.reload();
+		                } else {
+		                    alert('음...잘못된 담당자입니다...');
+		                }
+		            } ,
+		            error: function(xhr, status, error) {
+		                // 요청 처리 중 오류가 발생했을 때 실행할 코드
+		                alert('잘못된 담당자입니다...');
+		            }
+		        });
+		    });
+		//=====================공정삭제=========================
+		 $(document).on('click','#delProcmst', function() {
+		        // 사용여부
+		        var procCode = $('#procCode').text();
+		        
+		        // AJAX 요청을 통해 서버에 데이터 전송
+		        $.ajax({
+		            url: 'DelDateProc', // 요청을 처리할 서버의 URL
+		            type: 'POST',
+		            data: {
+		                'proc_Cd': procCode, 
+		            },
+		            dataType: 'text',
+		            success: function(response) {
+		            	if (response === 'success') {
+		                    alert('공정정보가 성공적삭제 되었습니다.');
+		                    location.reload();
+		                } else {
+		                    alert('문제발생1');
+		                }
+		            } ,
+		            error: function(xhr, status, error) {
+		                // 요청 처리 중 오류가 발생했을 때 실행할 코드
+		                alert('문제발생2');
+		            }
+		        });
+		    });
+		
+			//=====================공정추가=========================
+		 $(document).on('click','#NewProcmst', function() {
+		        // 사용여부
+				var use_Flag = $('input[name="use_Flag"]').is(':checked') ? 1 : 0;
+		        var proc_Cd = $('input[name="proc_Cd"]').val();
+		        var proc_Nm = $('input[name="proc_Nm"]').val();
+		        var remark = $('textarea[name="remark"]').val();
+		        var proc_Emp_Id = $('input[name="proc_Emp_Id"]').val();
+		        
+				var formData = new FormData();
+				formData.append('use_Flag',use_Flag);
+				formData.append('proc_Cd',proc_Cd);
+				formData.append('proc_Nm',proc_Nm);
+				formData.append('remark',remark);
+				formData.append('proc_Emp_Id',proc_Emp_Id);
+		        
+				
+		        // AJAX 요청을 통해 서버에 데이터 전송
+		        $.ajax({
+		            url: 'NewProc', // 요청을 처리할 서버의 URL
+		            type: 'POST',
+		            data: formData,
+		            processData: false, 
+		            contentType: false,
+		            dataType: 'text',
+		            success: function(response) {
+		            	if (response === 'success') {
+		                    alert('공정정보가 성공적으로 변경되었습니다');
+		                    location.reload();
+		                } else {
+		                    alert('음...잘못된 담당자입니다...');
+		                }
+		            } ,
+		            error: function(xhr, status, error) {
+		                // 요청 처리 중 오류가 발생했을 때 실행할 코드
+		                alert('잘못되었음');
+		            }
+		        });
+		    });
+		
+		//====================공정 검색============================
+
+		document.getElementById('searchInput').addEventListener(
+				'input',
+				function() {
+					var searchQuery = this.value.toLowerCase();
+					var table = document.getElementById('processTable');
+					var tr = table.getElementsByTagName('tr');
+
+					for (var i = 1; i < tr.length; i++) { // 행 반복 (첫 번째 행은 제외 - 헤더)
+						var tdCode = tr[i].getElementsByTagName('td')[1]; // 공정코드 열
+						var tdName = tr[i].getElementsByTagName('td')[2]; // 공정명 열
+						if (tdCode || tdName) {
+							var textValueCode = tdCode.textContent
+									|| tdCode.innerText;
+							var textValueName = tdName.textContent
+									|| tdName.innerText;
+							if (textValueCode.toLowerCase()
+									.indexOf(searchQuery) > -1
+									|| textValueName.toLowerCase().indexOf(
+											searchQuery) > -1) {
+								tr[i].style.display = "";
+							} else {
+								tr[i].style.display = "none"; // 일치하지 않으면 숨김
+							}
+						}
+					}
+				});
 	</script>
 </body>
 
 </html>
+
+

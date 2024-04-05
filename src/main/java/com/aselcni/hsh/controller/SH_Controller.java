@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.aselcni.hsh.model.Procmst;
+import com.aselcni.hsh.model.Whmst;
 import com.aselcni.hsh.service.SH_Service;
 
 
@@ -28,7 +29,7 @@ import com.aselcni.hsh.service.SH_Service;
 public class SH_Controller {
 	private final SH_Service sh;
 
-	//공정관리 페이지 넘어가기!
+	//공정관리 페이지 넘어가기
 	@RequestMapping("/procmst")
 	public String requestMethodName(Procmst procmst, Model model) {
 		System.out.println("SH_Controller requestMethodName start...");
@@ -98,11 +99,15 @@ public class SH_Controller {
 
 		}
 	
+		// ====================================창고관리========================================
 	
 	//창고관리 페이지 넘어가기
 	@RequestMapping("/whmst")
-	public String whmst() {
-		System.out.println("SH_Controller requestMethodName start...");
+	public String whmst(Whmst whmst, Model model) {
+		System.out.println("SH_Controller whmst start...");
+		List<Whmst> Whmsts = sh.getWhmst();
+		model.addAttribute("WhmstsList", Whmsts);
+		System.out.println("SH_Controller whmst Whmsts->"+" "+Whmsts);
 		return "hsh/whmst";
 	}
 	

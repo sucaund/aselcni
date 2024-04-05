@@ -169,7 +169,7 @@
 								            </select>										    
 								        </div>
 								        
-								        <table  style="margin: 10px 0;" class="table table-striped table-bordered t-8">
+								        <table  style="margin: 50px 0;" class="table table-striped table-bordered t-8">
 								            <thead class="bg-gray-50">
 								                <tr>
 								                    <th scope="col">선택</th>

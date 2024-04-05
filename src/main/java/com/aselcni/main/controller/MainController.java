@@ -1,17 +1,23 @@
 package com.aselcni.main.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.aselcni.main.model.MenuMst;
 import com.aselcni.main.model.UserMst;
 import com.aselcni.main.service.MainService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 @RequiredArgsConstructor
@@ -35,10 +41,13 @@ public class MainController {
 		
 		if(resultUser != null) {
 			if(bCryptPasswordEncoder.matches(user.getUser_pw(), resultUser.getUser_pw())) {
-				System.out.println(resultUser);
 				session.setAttribute("user_id", resultUser.getUser_id());
+				session.setAttribute("user_pw", user.getUser_pw());
 				session.setAttribute("user_nm", resultUser.getUser_nm());
 				session.setAttribute("user_comm_code", resultUser.getUser_comm_code());
+				session.setAttribute("comm_content", resultUser.getComm_content());
+				List<List<MenuMst>> menuListGroupByMenu = mainService.menuListGroupByMenu(resultUser.getUser_comm_code());
+				session.setAttribute("menuListGroupByMenu", menuListGroupByMenu);
 				result = "성공";
 			}
 		}
@@ -46,9 +55,23 @@ public class MainController {
 		return result;
 	}
 	
+	@GetMapping("/userLogout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
+	}
+	
+	
 	@GetMapping("/main")
 	public String main(HttpSession session) {
-		return "main";
+		
+		String resultPage = "redirect:/";
+		
+		if(session.getAttribute("user_id") != null) {
+			resultPage = "main";
+		}
+		
+		return resultPage;
 	}
 	
 }

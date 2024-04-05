@@ -90,14 +90,11 @@
 		                        <thead>
 		                            <tr>
 		                                <th>선택</th>
-		                                <th>번호</th>
-		                                <th>발주번호</th>
-		                                <th>매입처(거래처)</th>
-		                                <th>자재명</th>
-		                                <th>단가</th>
-		                                <th>수량</th>
-		                                <th>금액</th>
-		                                <th>발주담당자</th>
+		                                <th>발주번호 TB_PURCHASE PURC_NO</th>
+		                                <th>발주번호 TB_PURCHASED에서 PURC_NO</th>
+		                                <th>매입처(거래처)TB_CUSTMST-TB_PURCHASED조인 CUST_CD로 CUST_NM불러오기</th>
+		                                <th>자재명 TB_ITEMMST에서 ITEM_NM불러오는데 ITEM_FLAG가 01인애들</th>
+		                                <th>발주일자 TB_PURCHASE의 PURC_DT</th>
 		                            </tr>
 		                        </thead>
 		                        <tbody>
@@ -107,10 +104,7 @@
 		                                <td>11012ba</td>
 		                                <td>우리상사</td>
 		                                <td>비닐봉지(소분류?)</td>
-		                                <td>50,000원</td>
-		                                <td>1000개</td>
-		                                <td>50,000,000원</td>
-		                                <td>채승기</td>
+		                                <td>2024-04-01</td>
 		                            </tr>
 		                            <tr>
 		                                <td><input type="checkbox" id="itemSelect2" name="itemSelect"></td>
@@ -118,10 +112,7 @@
 		                                <td>11012bb</td>
 		                                <td>너네리상사</td>
 		                                <td>스프용 버섯(소분류?)</td>
-		                                <td>500원</td>
-		                                <td>1000개</td>
-		                                <td>500000원</td>
-		                                <td>채승기</td>
+		                                <td>2024-04-01</td>
 		                            </tr>
 		                            <tr>
 		                                <td><input type="checkbox" id="itemSelect3" name="itemSelect"></td>
@@ -129,10 +120,7 @@
 		                                <td>11012bc</td>
 		                                <td>하늘공사</td>
 		                                <td>물감(소분류?)</td>
-		                                <td>4,900원</td>
-		                                <td>1000개</td>
-		                                <td>4,900,000원</td>
-		                                <td>사고뭉치 권도염</td>
+		                                <td>2024-04-01</td>
 		                            </tr>
 		                        </tbody>
 		                    </table>

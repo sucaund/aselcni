@@ -55,7 +55,7 @@
             <h1>유저 관리</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/user/addForm">유저 관리</a></li>
+                    <li class="breadcrumb-item"><a href="/userManagement">유저 관리</a></li>
 					<li class="breadcrumb-item active">유저 추가</li>
                 </ol>
             </nav>
@@ -67,7 +67,10 @@
 				<form action="/userAdd" method="post">
 					<div>
 						<p>아이디</p>
-						<input name="user_id" type="text" class="form-control">
+						<div class="id-box">
+							<input name="user_id" type="text" class="user-id form-control">
+							<button type="button" class="duplication-chk btn btn-secondary">중복 체크</button>
+						</div>
 						<p class="user-alert user-id-alert">아이디를 입력하세요</p>
 					</div>
 					<div>
@@ -107,7 +110,7 @@
 					</div>
 					<div class="text-center">
 						<button type="submit" class="btn btn-primary">저장</button>
-						<button type="button" class="btn btn-secondary">취소</button>
+						<button type="button" class="cancle-btn btn btn-secondary">취소</button>
 					</div>
 				</form>
 			</div>
