@@ -8,6 +8,7 @@
 		WHERE PROC_DELETE_CHK = 0
 
 	</select>
+
 	<select id="GetprocmstDetails" resultType="Procmst"
 		parameterType="string">
 		SELECT *

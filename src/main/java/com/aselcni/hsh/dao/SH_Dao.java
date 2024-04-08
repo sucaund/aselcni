@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 import static org.hamcrest.CoreMatchers.nullValue;
 import com.aselcni.hsh.model.Procmst;
+import com.aselcni.hsh.model.Whmst;
 
 import lombok.RequiredArgsConstructor;
 
@@ -36,6 +37,7 @@ public class SH_Dao implements SH_Dao_Interface {
 		}
 		return getProcmst;
 	}
+	//아이디 유무확인
 	@Override
 	public boolean same_Emp_Id(String empId) {
 		System.out.println("SH_Dao same_Emp_Id start...");
@@ -82,5 +84,76 @@ public class SH_Dao implements SH_Dao_Interface {
 			System.out.println("SH_Dao NewProc e.getMessage()->" + e.getMessage());
 		}		
 	}
+	@Override
+	public List<Whmst> getWhmst() {
+		List<Whmst> getWhmst = null;
+		try {
+			getWhmst= session.selectList("HshgetWhmst");
+			System.out.println("!SH_Dao getWhmst ->" + getWhmst);
+
+		} catch (Exception e) {
+			System.out.println("!!SH_Dao getWhmst e.getMessage()->" + e.getMessage());
+			 e.printStackTrace();
+		}
+		return getWhmst;
+	}
+	@Override
+	public Whmst GetwhmstDetails(String id) {
+		Whmst getWhmst = null;
+		System.out.println("SH_Dao GetwhmstDetails start...");
+		try {
+			getWhmst= session.selectOne("GetwhmstDetails",id);
+			System.out.println("SH_Dao GetwhmstDetails ->"+"   "+getWhmst);
+
+		} catch (Exception e) {
+			System.out.println("SH_Dao GetwhmstDetails e.getMessage()->" + e.getMessage());
+		}
+		return getWhmst;
+	}
+	@Override
+	public void updatewhmst(Whmst whmst) {
+		System.out.println("SH_Dao updatewhmst start...");
+		try {
+			session.update("updateWhmst", whmst);
+			System.out.println("SH_Dao updatewhmst procmst->"+" "+whmst);
+
+		} catch (Exception e) {
+			System.out.println("SH_Dao updatewhmst e.getMessage()->" + e.getMessage());
+		}
+				
+	}
+	@Override
+	public void DelDatewhmst(Whmst whmst) {
+		System.out.println("SH_Dao DelDatewhmst start...");
+		try {
+			session.update("DelDatewhmst", whmst);
+			System.out.println("SH_Dao DelDatewhmst procmst->"+" "+whmst);
+
+		} catch (Exception e) {
+			System.out.println("SH_Dao DelDatewhmst e.getMessage()->" + e.getMessage());
+		}		
+	}
+	@Override
+	public void NewWhmst(Whmst whmst) {
+
+		System.out.println("SH_Dao NewWhmst start...");
+		try {
+			session.insert("NewWhmst", whmst);
+			System.out.println("SH_Dao NewWhmst procmst->"+" "+whmst);
+
+		} catch (Exception e) {
+			System.out.println("SH_Dao NewWhmst e.getMessage()->" + e.getMessage());
+		}		
+	}
+	/*
+	 * @Override public boolean same_Whcode(String wh_cd) {
+	 * System.out.println("SH_Dao same_Whcode start..."); try { String result =
+	 * session.selectOne("same_Whcode",wh_cd); return !"Yes".equals(result); } catch
+	 * (Exception e) { System.out.println("SH_Dao same_Whcode e.getMessage()->" +
+	 * e.getMessage()); return false; } }
+	 */
+	
+	
+	
 
 }

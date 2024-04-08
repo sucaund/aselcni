@@ -99,6 +99,33 @@
 													class="form-check-input" type="checkbox"
 													id="defaultCheck1">
 											</div>
+											
+												<div class="row mb-3">
+							                  <legend class="col-form-label col-sm-3 pt-0">창고분류</legend>
+							                  <div class="col-sm-10">
+							
+							                    <div class="form-check">
+							                      <input class="form-check-input" type="checkbox" id="gridCheck1">
+							                      <label class="form-check-label" for="gridCheck1">
+							                        자재
+							                      </label>
+							                    </div>
+							
+							                    <div class="form-check">
+							                      <input class="form-check-input" type="checkbox" id="gridCheck2">
+							                      <label class="form-check-label" for="gridCheck2">
+							                        출고
+							                      </label>
+							                    </div>
+							                    <div class="form-check">
+							                      <input class="form-check-input" type="checkbox" id="gridCheck3">
+							                      <label class="form-check-label" for="gridCheck3">
+							                        입고
+							                      </label>
+							                    </div>
+							
+							                  </div>
+							                </div>
 
 											<div class="row mb-3">
 												<label for="inputText" class="col-sm-2 col-form-label">창고코드</label>
@@ -161,6 +188,33 @@
 											</div>
 
 											<div class="row mb-3">
+							                  <legend class="col-form-label col-sm-3 pt-0">창고분류</legend>
+							                  <div class="col-sm-10">
+							
+							                    <div class="form-check">
+							                      <input name="wh_type1" class="form-check-input" type="checkbox" id="gridCheck1">
+							                      <label class="form-check-label" for="gridCheck1">
+							                        자재
+							                      </label>
+							                    </div>
+							
+							                    <div class="form-check">
+							                      <input name="wh_type2" class="form-check-input" type="checkbox" id="gridCheck2">
+							                      <label class="form-check-label" for="gridCheck2">
+							                        출고
+							                      </label>
+							                    </div>
+							                    <div class="form-check">
+							                      <input name="wh_type3" class="form-check-input" type="checkbox" id="gridCheck3">
+							                      <label class="form-check-label" for="gridCheck3">
+							                        입고
+							                      </label>
+							                    </div>
+							
+							                  </div>
+							                </div>
+
+											<div class="row mb-3">
 												<label class="col-sm-3 col-form-label">창고코드</label>
 												<div class="col-sm-7">
 													<p id="WH_CD"></p>
@@ -208,8 +262,8 @@
 										<div class="modal-footer">
 											<button type="button" class="btn btn-secondary"
 												data-bs-dismiss="modal">닫기</button>
-											<button type="button" id="chProcmst" class="btn btn-primary">수정</button>
-											<button type="button" id="delProcmst" class="btn btn-primary">삭제</button>
+											<button type="button" id="chWhmst" class="btn btn-primary">수정</button>
+											<button type="button" id="delWhmst" class="btn btn-primary">삭제</button>
 										</div>
 									</div>
 								</div>
@@ -249,6 +303,7 @@
 												<th>창고명</th>
 												<th>설명</th>
 												<th>담당자</th>
+												<th>창고구분</th>
 												<th>사용여부</th>
 
 											</tr>
@@ -262,13 +317,19 @@
 													<td><button type="button"
 															class="btn btn-outline-primary edit-process-btn" data-bs-toggle="modal"
 															data-bs-target="#verticalycentered1"
-															data-proc-id="${Whmst.WH_CD}">${Whmst.WH_CD}</button></td>
+															data-whmst-id="${Whmst.wh_cd}">${Whmst.wh_cd}</button></td>
 
-													<td>${Whmst.WH_NM}</td>
-													<td>${Whmst.REMARK}</td>
-													<td>${Whmst.WH_EMP_ID}</td>
+													<td>${Whmst.wh_nm}</td>
+													<td>${Whmst.remark}</td>
+													<td>${Whmst.wh_emp_id}</td>
+													
+													<td>
+													    <c:if test="${Whmst.wh_type1 == 1}">자재</c:if>
+													    <c:if test="${Whmst.wh_type2 == 1}">출고</c:if>
+													    <c:if test="${Whmst.wh_type3 == 1}">입고</c:if>
+													</td>
 													<td><c:choose>
-															<c:when test="${Whmst.USE_FLAG == 1}">
+															<c:when test="${Whmst.use_flag == 1}">
 												            사용
 												        </c:when>
 															<c:otherwise>
@@ -291,36 +352,7 @@
 			</div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-			<div class="modal fade" id="verticalycentered1" tabindex="-1">
-				<div class="modal-dialog modal-dialog-centered">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title">Vertically Centered</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="modal"
-								aria-label="Close"></button>
-						</div>
-						<div class="modal-body">수정</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary"
-								data-bs-dismiss="modal">Close</button>
-							<button type="button" class="btn btn-primary">Save
-								changes</button>
-						</div>
-					</div>
-				</div>
-			</div>
+		
 
 		</section>
 
@@ -345,34 +377,52 @@
 	<script src="assets/vendor/tinymce/tinymce.min.js"></script>
 	<script src="assets/vendor/php-email-form/validate.js"></script>
 	<script type="text/javascript">
-		//=====================공정정보 가져오기======================
+		//=====================창고정보 가져오기======================
 		$(document).ready(function() {
 			$('.edit-process-btn').on('click', function() {
-				var procId = $(this).data('proc-id');
+				var WhmstId = $(this).data('whmst-id');
 
 				$.ajax({
-					url : 'procmstDetails', // 서버의 URL을 지정해야 합니다.
+					url : 'whmstDetails', // 서버의 URL을 지정해야 합니다.
 					type : 'GET',
 					data : {
-						'id' : procId
+						'id' : WhmstId
 					}, // 서버로 보낼 데이터
 					dataType : 'json', // 응답 받을 데이터의 타입
 					success : function(data) {
 						// 모달의 입력 필드에 공정 정보를 채움
 						
-						console.log("Use Flag:", data.use_Flag);
+						console.log("data:", data);
+						console.log("Use Flag:", data.use_flag);
+						console.log("WH_CD:", data.wh_cd);
 					    
-						$('#procCode').text(data.proc_Cd);
-						$('#verticalycentered1 input[name="proc_Nm"]').val(data.proc_Nm);
-						$('#proc_Regdate').text(data.proc_Regdate);
-						$('#proc_Update').text(data.proc_Update);
-						$('#verticalycentered1 textarea[name="remark"]').val(data.remark);
-						$('#verticalycentered1 input[name="proc_Emp_Id"]').val(data.proc_Emp_Id);
+						$('#WH_CD').text(data.wh_cd);
+						$('#verticalycentered1 input[name="WH_NM"]').val(data.wh_nm);
+						$('#WH_REGDATE').text(data.wh_regdate);
+						$('#WH_UPDATE').text(data.wh_update);
+						$('#verticalycentered1 textarea[name="REMARK"]').val(data.remark);
+						$('#verticalycentered1 input[name="WH_EMP_ID"]').val(data.wh_emp_id);
 						
-						 if(data.use_Flag === 1) {
-			                    $('#verticalycentered1 input[name="use_Flag"]').prop('checked', true);
+						 if(data.wh_type1 === 1) {
+			                    $('#verticalycentered1 input[name="wh_type1"]').prop('checked', true);
 			                } else {
-			                    $('#verticalycentered1 input[name="use_Flag"]').prop('checked', false);
+			                    $('#verticalycentered1 input[name="wh_type1"]').prop('checked', false);
+			                }
+						 if(data.wh_type2 === 1) {
+			                    $('#verticalycentered1 input[name="wh_type2"]').prop('checked', true);
+			                } else {
+			                    $('#verticalycentered1 input[name="wh_type2"]').prop('checked', false);
+			                }
+						 if(data.wh_type3 === 1) {
+			                    $('#verticalycentered1 input[name="wh_type3"]').prop('checked', true);
+			                } else {
+			                    $('#verticalycentered1 input[name="wh_type3"]').prop('checked', false);
+			                }
+
+						 if(data.use_flag === 1) {
+			                    $('#verticalycentered1 input[name="USE_FLAG"]').prop('checked', true);
+			                } else {
+			                    $('#verticalycentered1 input[name="USE_FLAG"]').prop('checked', false);
 			                }
 						
 						// 모달을 열음
@@ -385,30 +435,37 @@
 			});
 		});
 		
-		//=====================공정수정=========================
-		 $(document).on('click','#chProcmst', function() {
+		//=====================창고수정=========================
+		 $(document).on('click','#chWhmst', function() {
 		        // 사용여부
-				var use_Flag = $('#verticalycentered1 input[name="use_Flag"]').is(':checked') ? 1 : 0;
-    			var procCode = $('#procCode').text();
-    			var proc_Nm = $('#verticalycentered1 input[name="proc_Nm"]').val(); // 수정된 부분
-    			var remark = $('#verticalycentered1 textarea[name="remark"]').val();
-   				var proc_Emp_Id = $('#verticalycentered1 input[name="proc_Emp_Id"]').val(); // 수정된 부분
+				var use_flag = $('#verticalycentered1 input[name="USE_FLAG"]').is(':checked') ? 1 : 0;
 		        
-				console.log("Use Flag:", use_Flag);
-				console.log("proc_Nm:", proc_Nm);
-				console.log("proc_Emp_Id:", proc_Emp_Id);
+				var wh_type1 = $('#verticalycentered1 input[name="wh_type1"]').is(':checked') ? 1 : 0;
+				var wh_type2 = $('#verticalycentered1 input[name="wh_type2"]').is(':checked') ? 1 : 0;
+				var wh_type3 = $('#verticalycentered1 input[name="wh_type3"]').is(':checked') ? 1 : 0;
+
+		        
+    			var wh_cd = $('#WH_CD').text();
+    			var wh_nm = $('#verticalycentered1 input[name="WH_NM"]').val(); // 수정된 부분
+    			var remark = $('#verticalycentered1 textarea[name="REMARK"]').val();
+   				var wh_emp_id = $('#verticalycentered1 input[name="WH_EMP_ID"]').val(); // 수정된 부분
+		        
+				
 
 
 		        // AJAX 요청을 통해 서버에 데이터 전송
 		        $.ajax({
-		            url: 'updateProc', // 요청을 처리할 서버의 URL
+		            url: 'updateWhmst', // 요청을 처리할 서버의 URL
 		            type: 'POST',
 		            data: {
-		                'use_Flag': use_Flag, 
-		                'proc_Cd': procCode, 
-		                'proc_Nm': proc_Nm ,
+		                'wh_cd': wh_cd, 
+		                'use_flag': use_flag, 
+		                'wh_type1': wh_type1, 
+		                'wh_type2': wh_type2, 
+		                'wh_type3': wh_type3, 
+		                'wh_nm': wh_nm ,
 		                'remark': remark,
-		                'proc_Emp_Id': proc_Emp_Id 
+		                'wh_emp_id': wh_emp_id 
 		            },
 		            dataType: 'text',
 		            success: function(response) {
@@ -425,17 +482,17 @@
 		            }
 		        });
 		    });
-		//=====================공정삭제=========================
-		 $(document).on('click','#delProcmst', function() {
+		//=====================창고삭제=========================
+		 $(document).on('click','#delWhmst', function() {
 		        // 사용여부
-		        var procCode = $('#procCode').text();
+		        var wh_cd = $('#WH_CD').text();
 		        
 		        // AJAX 요청을 통해 서버에 데이터 전송
 		        $.ajax({
-		            url: 'DelDateProc', // 요청을 처리할 서버의 URL
+		            url: 'DelDateWhmst', // 요청을 처리할 서버의 URL
 		            type: 'POST',
 		            data: {
-		                'proc_Cd': procCode, 
+		                'wh_cd': wh_cd, 
 		            },
 		            dataType: 'text',
 		            success: function(response) {
@@ -453,26 +510,32 @@
 		        });
 		    });
 		
-			//=====================공정추가=========================
-		 $(document).on('click','#NewProcmst', function() {
+			//=====================창고추가=========================
+		 $(document).on('click','#NewWhmst', function() {
 		        // 사용여부
-				var use_Flag = $('input[name="use_Flag"]').is(':checked') ? 1 : 0;
-		        var proc_Cd = $('input[name="proc_Cd"]').val();
-		        var proc_Nm = $('input[name="proc_Nm"]').val();
-		        var remark = $('textarea[name="remark"]').val();
-		        var proc_Emp_Id = $('input[name="proc_Emp_Id"]').val();
+				var use_flag = $('input[name="USE_FLAG"]').is(':checked') ? 1 : 0;
+				var wh_type1 = $('#verticalycentered1 input[name="wh_type1"]').is(':checked') ? 1 : 0;
+				var wh_type2 = $('#verticalycentered1 input[name="wh_type2"]').is(':checked') ? 1 : 0;
+				var wh_type3 = $('#verticalycentered1 input[name="wh_type3"]').is(':checked') ? 1 : 0;
+		        var wh_cd = $('input[name="WH_CD"]').val();
+		        var wh_nm = $('input[name="WH_NM"]').val();
+		        var remark = $('textarea[name="REMARK"]').val();
+		        var wh_emp_id = $('input[name="WH_EMP_ID"]').val();
 		        
 				var formData = new FormData();
-				formData.append('use_Flag',use_Flag);
-				formData.append('proc_Cd',proc_Cd);
-				formData.append('proc_Nm',proc_Nm);
+				formData.append('use_flag',use_flag);
+				formData.append('wh_type1',wh_type1);
+				formData.append('wh_type2',wh_type2);
+				formData.append('wh_type3',wh_type3);
+				formData.append('wh_cd',wh_cd);
+				formData.append('wh_nm',wh_nm);
 				formData.append('remark',remark);
-				formData.append('proc_Emp_Id',proc_Emp_Id);
+				formData.append('wh_emp_id',wh_emp_id);
 		        
 				
 		        // AJAX 요청을 통해 서버에 데이터 전송
 		        $.ajax({
-		            url: 'NewProc', // 요청을 처리할 서버의 URL
+		            url: 'NewWhmst', // 요청을 처리할 서버의 URL
 		            type: 'POST',
 		            data: formData,
 		            processData: false, 
@@ -480,20 +543,23 @@
 		            dataType: 'text',
 		            success: function(response) {
 		            	if (response === 'success') {
-		                    alert('공정정보가 성공적으로 변경되었습니다');
+		                    alert('창고정보가 성공적으로 추가되었습니다');
 		                    location.reload();
 		                } else {
 		                    alert('음...잘못된 담당자입니다...');
 		                }
 		            } ,
 		            error: function(xhr, status, error) {
-		                // 요청 처리 중 오류가 발생했을 때 실행할 코드
-		                alert('잘못되었음');
+		                if(xhr.status === 409) { // 409 Conflict 응답 처리
+		                    alert('중복된 코드입니다.');
+		                } else {
+		                    alert('오류 발생: ' + xhr.responseText);
+		                }
 		            }
 		        });
 		    });
 		
-		//====================공정 검색============================
+		//====================창고 검색============================
 
 		document.getElementById('searchInput').addEventListener(
 				'input',

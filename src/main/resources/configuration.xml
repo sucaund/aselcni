@@ -39,7 +39,9 @@
 			type="com.aselcni.kdw.model.TB_ITEM_PROD" />
 		<typeAlias alias="JtuProdItem" type="com.aselcni.jtu.model.JtuProdItem" />
 		<typeAlias alias="JtuWorkProd" type="com.aselcni.jtu.model.JtuWorkProd" />
+
 		<typeAlias alias="Procmst" type="com.aselcni.hsh.model.Procmst" />
+		<typeAlias alias="Whmst" type="com.aselcni.hsh.model.Whmst" />
 
 		<typeAlias alias="UjmCommon" type="com.aselcni.ujm.model.UjmCommon" />
 		<typeAlias alias="UjmComp" type="com.aselcni.ujm.model.UjmComp" />

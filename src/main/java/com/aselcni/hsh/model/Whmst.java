@@ -5,16 +5,16 @@ import lombok.Data;
 @Data
 public class Whmst {
 
-    private String WH_CD;
-    private String WH_NM;
-    private String REMARK;
-    private Integer WH_TYPE1;
-    private Integer WH_TYPE2;
-    private Integer WH_TYPE3;
-    private Integer USE_FLAG;
-    private String WH_REGDATE;
-    private String WH_UPDATE;
-    private String WH_EMP_ID;
-    private Integer WH_DELETE_CHK;
+    private String wh_cd;
+    private String wh_nm;
+    private String remark;
+    private Integer wh_type1;
+    private Integer wh_type2;
+    private Integer wh_type3;
+    private Integer use_flag;
+    private String wh_regdate;
+    private String wh_update;
+    private String wh_emp_id;
+    private Integer wh_delete_chk;
 	
 }

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.aselcni.hsh.dao.SH_Dao;
 import com.aselcni.hsh.model.Procmst;
+import com.aselcni.hsh.model.Whmst;
+
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -52,5 +54,41 @@ private final SH_Dao sd;
 		System.out.println("SH_Service NewProc  procmst->"+procmst);
 		sd.NewProc(procmst);
 	}
+	@Override
+	public List<Whmst> getWhmst() {
+		List<Whmst> getWhmst = sd.getWhmst();
+		return getWhmst;
+	}
+	@Override
+	public Whmst GetwhmstDetails(String id) {
+		Whmst whmst = sd.GetwhmstDetails(id);
+		System.out.println("SH_Service GetwhmstDetails  whmst->"+whmst);
+
+		return whmst;
+	}
+	@Override //창고업데이트
+	public void updateWhmst(Whmst whmst) {
+		System.out.println("SH_Service updateWhmst  whmst->"+"   "+whmst);
+		sd.updatewhmst(whmst);
+
+		
+	}
+	@Override //창고삭제
+	public void DelDatewhmst(Whmst whmst) {
+		System.out.println("SH_Service DelDatewhmst  whmst->"+whmst);
+		sd.DelDatewhmst(whmst);		
+	}
+	@Override //창고추가
+	public void NewWhmst(Whmst whmst) {
+		System.out.println("SH_Service NewWhmst  whmst->"+whmst);
+		sd.NewWhmst(whmst);
+	}
+	/*
+	 * @Override public boolean same_Whcode(String wh_cd) { boolean same =
+	 * sd.same_Whcode(wh_cd);
+	 * System.out.println("SH_Service same_Emp_Id  same->"+same);
+	 * 
+	 * return same; }
+	 */
 
 }

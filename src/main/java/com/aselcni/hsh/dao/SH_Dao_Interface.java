@@ -3,6 +3,7 @@ package com.aselcni.hsh.dao;
 import java.util.List;
 
 import com.aselcni.hsh.model.Procmst;
+import com.aselcni.hsh.model.Whmst;
 
 public interface SH_Dao_Interface {
 
@@ -22,5 +23,22 @@ public interface SH_Dao_Interface {
 
 
 	void NewProc(Procmst procmst);
+
+
+	List<Whmst> getWhmst();
+
+
+	Whmst GetwhmstDetails(String id);
+
+
+	void updatewhmst(Whmst whmst);
+
+
+	void DelDatewhmst(Whmst whmst);
+
+
+	void NewWhmst(Whmst whmst);
+
+
 
 }

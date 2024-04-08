@@ -111,5 +111,62 @@ public class SH_Controller {
 		return "hsh/whmst";
 	}
 	
-	
+	//창고상세정보
+		@ResponseBody
+		@RequestMapping("whmstDetails")
+		public Whmst whmstDetails(@RequestParam("id") String id) {
+			System.out.println("SH_Controller whmstDetails start...");
+			System.out.println("SH_Controller whmstDetails id->"+" "+id);
+
+			Whmst whmsts = sh.GetwhmstDetails(id);
+			System.out.println("SH_Controller whmstDetails whmst->"+" "+whmsts);
+
+			return whmsts;
+		}
+		//창고 수정
+		@ResponseBody
+		@PostMapping("updateWhmst")
+		public String updateWhmst (@ModelAttribute Whmst whmst) {
+			System.out.println("SH_Controller updateProc start...================");
+			String whmstId = whmst.getWh_emp_id();
+			System.out.println("SH_Controller updateWhmst whmstId->"+" "+whmstId);
+			System.out.println("SH_Controller updateWhmst whmst->"+" "+whmst);
+			if(sh.same_Emp_Id(whmstId)) {
+				sh.updateWhmst(whmst);
+				String status = "success";
+				return status;
+			}else {
+				String status = "error";
+				return status;
+			}
+		}
+
+
+		//창고 삭제
+		@ResponseBody
+		@PostMapping("DelDateWhmst")
+		public String DelDateWhmst (@ModelAttribute Whmst whmst) {
+			System.out.println("SH_Controller DelDateWhmst start...");
+				sh.DelDatewhmst(whmst);
+				String status = "success";
+				return status;
+		}
+		
+		//창고 추가
+				@ResponseBody
+				@PostMapping("NewWhmst")
+				public String NewWhmst (@ModelAttribute  Whmst whmst) {
+					System.out.println("SH_Controller NewProc start...================");
+					
+					String whmstId = whmst.getWh_emp_id();
+					if(sh.same_Emp_Id(whmstId)) {
+						sh.NewWhmst(whmst);
+						String status = "success";
+						return status;
+					}else {
+						String status = "error";
+						return status;
+					}
+
+				}
 }
