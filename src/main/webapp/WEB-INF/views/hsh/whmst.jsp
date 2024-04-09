@@ -130,7 +130,10 @@
 											<div class="row mb-3">
 												<label for="inputText" class="col-sm-2 col-form-label">창고코드</label>
 												<div class="col-sm-8">
-													<input name="WH_CD" type="text" class="form-control">
+													<input name="WH_CD" id="wh_cd" type="text" class="form-control" placeholder="영대문자 세자리+숫자10자리">
+					            					<p style="color:red; display: none" id="fail">이미 존재하는 CD입니다.</p>
+													  <p style="color:red; display: none;" id="failid">
+                                    					규격을 맞추어 주세요</p> 
 												</div>
 											</div>
 
@@ -510,8 +513,96 @@
 		        });
 		    });
 		
-			//=====================창고추가=========================
-		 $(document).on('click','#NewWhmst', function() {
+		
+		
+		
+			//=====================창고코드 중복여부 확인=========================
+			var idCheck = 0;
+			
+				function regMemberId(wh_cd) {
+					    // 영어 대문자와 숫자만 포함되어 있는지 검사하는 정규 표현식
+					    var regExp = /^[A-Z0-9]{13}$/;
+					    
+					    if (!regExp.test(wh_cd)) {
+					        return false; // 정규 표현식에 맞지 않으면 바로 false 반환
+					    }
+					
+					    // 영어 대문자와 숫자의 개수를 세기
+					    var countDigits = (wh_cd.match(/\d/g) || []).length;
+					    var countUppercase = (wh_cd.match(/[A-Z]/g) || []).length;
+					
+					    // 영어 대문자가 3개이고 숫자가 10개인지 확인
+					    return countDigits === 10 && countUppercase === 3;
+					}
+				
+			
+				$(document).ready(function() {
+				    // 창고 코드 입력 필드에 대한 입력 이벤트 리스너 설정
+				    $('#wh_cd').on('input', function() {
+				        checkCd(); // 사용자 입력마다 checkCd 함수 호출
+				    });
+				});
+
+				function checkCd() {
+				    var inputed = $('#wh_cd').val(); // 입력된 창고 코드 가져오기
+				    
+				    if (!regMemberId(inputed)) {
+				        // 규격에 맞지 않으면 규격 경고 메시지 표시하고 중복 경고 메시지는 숨김
+				        $("#failid").show();
+				        $("#fail").hide();
+				        $("#wh_cd").css("background-color", "#FFCECE"); // 입력 필드 배경색 변경
+				        $("#NewWhmst").prop("disabled", true).css("background-color", "#aaaaaa");
+				        idCheck = 0; // 글로벌 변수 idCheck 설정
+				        return; // 여기서 함수 실행 종료
+				    }
+				    
+				    
+				    $.ajax({
+				        data : {'wh_cd' : inputed}, // 서버로 보낼 데이터
+				        url : "hshWhCk", // 서버 URL
+				        success : function(data) {
+				            if(data == '1') { // 중복된 코드일 때
+				                $("#fail").show(); // 중복 경고 메시지 표시
+				                $("#failid").hide(); // 규격 경고 메시지 숨기기
+				                $("#NewWhmst").prop("disabled", true).css("background-color", "#aaaaaa");
+				                $("#wh_cd").css("background-color", "#FFCECE");
+				                idCheck = 0;
+				            } else {
+				                // 규격 검사 로직 추가할 수 있음 (예: regMemberId 함수 사용)
+				                $("#fail").hide(); // 중복 경고 메시지 숨기기
+				                $("#failid").hide(); // 규격 경고 메시지 숨기기
+				                $("#wh_cd").css("background-color", ""); // 입력 필드 배경색 초기화
+				                $("#NewWhmst").prop("disabled", false).css("background-color", "#0D6CF9");
+				                idCheck = 1;
+				            }
+				        },
+				        error : function(xhr, status, error) {
+				            console.error("AJAX Error: " + status + error);
+				        }
+				    });
+				}
+
+			
+				
+				//================생성버튼 활성화=============
+				 function activateSignUpBtn() { 
+    					console.log('idCheck'+idCheck);
+    		
+    		   
+    		   if(idCheck == 1) {
+    		      $("#NewWhmst").prop("disabled", false);   
+				  $("#NewWhmst").css("background-color", "#0D6CF9");
+    		   }
+    		   else  {
+    		      $("#NewWhmst").css("background-color", "#aaaaaa");
+    		      $("#NewWhmst").prop("disabled", true);
+    		}
+				}
+				
+				
+				
+			//=====================기존 관리자 id 유무확인및 등록===========================
+				$(document).on('click','#NewWhmst', function() {
 		        // 사용여부
 				var use_flag = $('input[name="USE_FLAG"]').is(':checked') ? 1 : 0;
 				var wh_type1 = $('#verticalycentered1 input[name="wh_type1"]').is(':checked') ? 1 : 0;
@@ -546,7 +637,7 @@
 		                    alert('창고정보가 성공적으로 추가되었습니다');
 		                    location.reload();
 		                } else {
-		                    alert('음...잘못된 담당자입니다...');
+		                    alert('존재하지않는 담당자입니다!');
 		                }
 		            } ,
 		            error: function(xhr, status, error) {

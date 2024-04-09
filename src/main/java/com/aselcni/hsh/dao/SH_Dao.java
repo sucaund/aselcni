@@ -145,6 +145,19 @@ public class SH_Dao implements SH_Dao_Interface {
 			System.out.println("SH_Dao NewWhmst e.getMessage()->" + e.getMessage());
 		}		
 	}
+	@Override
+	public int checkCd(String wh_cd) {
+		System.out.println("SH_Dao checkCd start..");
+		int checkWdCount= 0;
+		try {
+			checkWdCount = session.selectOne("hshCheckCd",wh_cd);
+			System.out.println("SH_Dao checkCd checkWdCount->"+"  "+checkWdCount);
+
+		} catch (Exception e) {
+			System.out.println("SH_Dao checkCd Exception->"+e.getMessage());
+		}
+		return checkWdCount;
+	}
 	/*
 	 * @Override public boolean same_Whcode(String wh_cd) {
 	 * System.out.println("SH_Dao same_Whcode start..."); try { String result =

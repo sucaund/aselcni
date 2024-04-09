@@ -83,6 +83,13 @@ private final SH_Dao sd;
 		System.out.println("SH_Service NewWhmst  whmst->"+whmst);
 		sd.NewWhmst(whmst);
 	}
+	@Override
+	public int checkCd(String wh_cd) {
+		System.out.println("SH_Service checkCd ...");
+		int checkCd=0;
+		checkCd=sd.checkCd(wh_cd);
+		return checkCd;
+	}
 	/*
 	 * @Override public boolean same_Whcode(String wh_cd) { boolean same =
 	 * sd.same_Whcode(wh_cd);

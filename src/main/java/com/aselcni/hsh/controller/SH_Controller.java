@@ -169,4 +169,15 @@ public class SH_Controller {
 					}
 
 				}
+				
+				@ResponseBody // 회원가입시 아이디 중복 체크
+				@RequestMapping(value = "hshWhCk")
+				public int hshWhCk(@RequestParam("wh_cd") String wh_cd) {
+					System.out.println("SH_Controller hshWhCk Start...");
+					System.out.println("SH_Controller hshWhCk wh_cd->"+" "+wh_cd);
+					if (wh_cd == null || wh_cd == "")
+						return -1;
+					else
+						return sh.checkCd(wh_cd); //입력한 아이디와 일치하는 아이디가 있는지 찾아옴, 0이어야 가입가능
+				} // 스트링을 보내서 인트를 받아옴
 }

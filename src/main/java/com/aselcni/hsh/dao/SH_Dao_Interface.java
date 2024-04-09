@@ -40,5 +40,8 @@ public interface SH_Dao_Interface {
 	void NewWhmst(Whmst whmst);
 
 
+	int checkCd(String wh_cd);
+
+
 
 }

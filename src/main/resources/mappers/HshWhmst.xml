@@ -63,6 +63,9 @@
         )
     </insert>
 
+ 	<select id="hshCheckCd" parameterType = "String" resultType = "int">
+ 	 	SELECT COUNT(*) FROM TB_WHMST WHERE WH_CD = #{m_id} and WH_DELETE_CHK=0
+ 	 </select>
 <!-- 	<select id="same_Whcode" resultType="string" parameterType="string">
 		SELECT CASE
 		WHEN EXISTS (
