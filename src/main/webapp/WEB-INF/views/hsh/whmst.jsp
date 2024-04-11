@@ -39,7 +39,16 @@
 	crossorigin="anonymous"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<style type="text/css">
 
+    .remark-cell {
+        max-width: 100px; /* 최대 너비 설정 */
+        white-space: nowrap; /* 텍스트를 한 줄로 설정 */
+        overflow: hidden; /* 내용이 넘치면 숨김 */
+        text-overflow: ellipsis; /* 넘치는 텍스트를 '...'으로 표시 */
+    }
+
+</style>
 </head>
 
 <body>
@@ -282,14 +291,23 @@
 
 
 
-									<div class="search-bar">
-										<form class="search-form d-flex align-items-center"
-											method="POST" action="#">
-											<input type="text" id="searchInput" name="query"
-												placeholder="창고코드/명" title="Enter search keyword">
-
-										</form>
-									</div>
+									<div class="searchdiv">
+								            <form action="/whmst">
+								              <div class="d-flex">
+								              <select class="form-select searchselect"
+									                  aria-label="Default select example"
+									                  name="searchFilter" >
+									                  <option selected="">검색옵션선택</option>
+									                  <option value="wh_cd">코드</option>
+									                  <option value="wh_nm">이름</option>
+									                </select>
+								              
+								                <input type="text" name="keyword" class="form-control searchinput" />
+								                
+								                <button type="submit" class="btn btn-primary">검색</button>
+								              </div>
+								            </form>
+								          </div>
 									<!-- End Search Bar -->
 
 
@@ -323,7 +341,7 @@
 															data-whmst-id="${Whmst.wh_cd}">${Whmst.wh_cd}</button></td>
 
 													<td>${Whmst.wh_nm}</td>
-													<td>${Whmst.remark}</td>
+													<td class="remark-cell">${Whmst.remark}</td>
 													<td>${Whmst.wh_emp_id}</td>
 													
 													<td>
@@ -344,7 +362,28 @@
 										</tbody>
 									</table>
 								</div>
-
+								<div>
+								<div class="container">
+								<div class="row">
+									<div class="col">
+										<ul class="pagination d-flex justify-content-center">
+											<c:if test="${page.startPage > page.pageBlock }">
+												<li class="page-item"><a class="page-link"
+													href="/whmst?currentPage=${page.startPage-page.pageBlock}">이전</a></li>
+											</c:if>
+											<c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
+												<li class="page-item"><a class="page-link"
+													href="/whmst?currentPage=${i}&searchFilter=${whmst.searchFilter}&keyword=${whmst.keyword}">${i}</a></li>
+											</c:forEach>
+											<c:if test="${page.endPage < page.totalPage }">
+												<li class="page-item"><a class="page-link"
+													href="/whmst?currentPage=${page.startPage+page.pageBlock}">다음</a></li>
+											</c:if>
+										</ul>
+									</div>
+								</div>
+							</div>
+</div>
 							</div>
 							<!-- End Table with stripped rows -->
 
@@ -650,34 +689,7 @@
 		        });
 		    });
 		
-		//====================창고 검색============================
-
-		document.getElementById('searchInput').addEventListener(
-				'input',
-				function() {
-					var searchQuery = this.value.toLowerCase();
-					var table = document.getElementById('processTable');
-					var tr = table.getElementsByTagName('tr');
-
-					for (var i = 1; i < tr.length; i++) { // 행 반복 (첫 번째 행은 제외 - 헤더)
-						var tdCode = tr[i].getElementsByTagName('td')[1]; // 공정코드 열
-						var tdName = tr[i].getElementsByTagName('td')[2]; // 공정명 열
-						if (tdCode || tdName) {
-							var textValueCode = tdCode.textContent
-									|| tdCode.innerText;
-							var textValueName = tdName.textContent
-									|| tdName.innerText;
-							if (textValueCode.toLowerCase()
-									.indexOf(searchQuery) > -1
-									|| textValueName.toLowerCase().indexOf(
-											searchQuery) > -1) {
-								tr[i].style.display = "";
-							} else {
-								tr[i].style.display = "none"; // 일치하지 않으면 숨김
-							}
-						}
-					}
-				});
+	
 	</script>
 </body>
 

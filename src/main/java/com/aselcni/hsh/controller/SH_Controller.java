@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.aselcni.hsh.model.Procmst;
 import com.aselcni.hsh.model.Whmst;
+import com.aselcni.hsh.service.HshPaging;
 import com.aselcni.hsh.service.SH_Service;
 
 
@@ -33,10 +34,45 @@ public class SH_Controller {
 	@RequestMapping("/procmst")
 	public String requestMethodName(Procmst procmst, Model model) {
 		System.out.println("SH_Controller requestMethodName start...");
-		List<Procmst> procmsts = sh.getProcmst();
+		
+		int totalprocmst = sh.totalprocmst();
+		HshPaging page = new HshPaging(totalprocmst, procmst.getCurrentPage());
+		
+		procmst.setStart(page.getStart());
+		procmst.setEnd(page.getEnd());
+		
+		List<Procmst> procmsts = sh.getProcmst(procmst);
+		
+		
+		model.addAttribute("Procmst", procmst);
 		model.addAttribute("processList", procmsts);
+		model.addAttribute("page", page);
+		
 		System.out.println("SH_Controller requestMethodName procmsts->"+" "+procmsts);
-
+		
+		
+		return "hsh/procmst";
+	}
+	//공정관리 페이지 다음칸
+	@RequestMapping("/nextProcmst")
+	public String nextProcmst(Procmst procmst, Model model) {
+		System.out.println("SH_Controller requestMethodName start...");
+		
+		int totalprocmst = sh.totalprocmst();
+		HshPaging page = new HshPaging(totalprocmst, procmst.getCurrentPage());
+		
+		procmst.setStart(page.getStart());
+		procmst.setEnd(page.getEnd());
+		
+		List<Procmst> procmsts = sh.getProcmst(procmst);
+		
+		
+		model.addAttribute("Procmst", procmst);
+		model.addAttribute("processList", procmsts);
+		model.addAttribute("page", page);
+		
+		System.out.println("SH_Controller requestMethodName procmsts->"+" "+procmsts);
+		
 		
 		return "hsh/procmst";
 	}
@@ -87,13 +123,16 @@ public class SH_Controller {
 		public String NewProc (@ModelAttribute Procmst procmst) {
 			System.out.println("SH_Controller NewProc start...================");
 			
+			String procd = procmst.getProc_Cd();
 			String empId = procmst.getProc_Emp_Id();
-			if(sh.same_Emp_Id(empId) == true) {
+			if(sh.same_Emp_Id(empId) && sh.same_pro_cd(procd)) {
 				sh.NewProc(procmst);
 				String status = "success";
 				return status;
 			}else {
 				String status = "error";
+				System.out.println("SH_Controller NewProc error...");
+
 				return status;
 			}
 
@@ -104,10 +143,27 @@ public class SH_Controller {
 	//창고관리 페이지 넘어가기
 	@RequestMapping("/whmst")
 	public String whmst(Whmst whmst, Model model) {
-		System.out.println("SH_Controller whmst start...");
-		List<Whmst> Whmsts = sh.getWhmst();
-		model.addAttribute("WhmstsList", Whmsts);
-		System.out.println("SH_Controller whmst Whmsts->"+" "+Whmsts);
+System.out.println("SH_Controller requestMethodName start...");
+		
+		int totalwhmst = sh.totalwhmst();
+		System.out.println("SH_Controller totalwhmst ->"+""+totalwhmst);
+		
+
+		HshPaging page = new HshPaging(totalwhmst, whmst.getCurrentPage());
+		
+		whmst.setStart(page.getStart());
+		whmst.setEnd(page.getEnd());
+		
+		List<Whmst> whmsts = sh.getWhmst(whmst);
+		
+		
+		model.addAttribute("whmst", whmst);
+		model.addAttribute("WhmstsList", whmsts);
+		model.addAttribute("page", page);
+		
+		System.out.println("SH_Controller whmst whmsts->"+" "+whmsts);
+		
+		
 		return "hsh/whmst";
 	}
 	

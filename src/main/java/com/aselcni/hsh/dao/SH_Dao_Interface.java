@@ -7,7 +7,6 @@ import com.aselcni.hsh.model.Whmst;
 
 public interface SH_Dao_Interface {
 
-	List<Procmst> getProcmst();
 
 
 	Procmst GetprocmstDetails(String id);
@@ -25,7 +24,6 @@ public interface SH_Dao_Interface {
 	void NewProc(Procmst procmst);
 
 
-	List<Whmst> getWhmst();
 
 
 	Whmst GetwhmstDetails(String id);
@@ -41,6 +39,21 @@ public interface SH_Dao_Interface {
 
 
 	int checkCd(String wh_cd);
+
+
+	boolean same_pro_cd(String procd);
+
+
+	int totalprocmst();
+
+
+	List<Procmst> getProcmst(Procmst procmst);
+
+
+	List<Whmst> getWhmst(Whmst whmst);
+
+
+	int totalwhmst();
 
 
 

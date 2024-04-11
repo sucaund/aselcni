@@ -36,6 +36,8 @@ public class CustmstController {
 		LhsPaging page = new LhsPaging(cnt, custMst.getCurrentPage());
 		custMst.setStart(page.getStart());
 		custMst.setEnd(page.getEnd());
+		System.out.println("!!custMst : " + custMst);
+
 		List<CustMst> custList = mstService.selectListCust(custMst);
 		model.addAttribute("custMst", custMst);
 		model.addAttribute("custList", custList);

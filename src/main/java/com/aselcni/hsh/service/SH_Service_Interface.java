@@ -9,7 +9,6 @@ public interface SH_Service_Interface {
 
 	Procmst GetprocmstDetails(String id);
 
-	List<Procmst> getProcmst();
 
 	boolean same_Emp_Id(String empId);
 
@@ -19,7 +18,6 @@ public interface SH_Service_Interface {
 
 	void NewProc(Procmst procmst);
 
-	List<Whmst> getWhmst();
 
 	Whmst GetwhmstDetails(String id);
 
@@ -30,6 +28,18 @@ public interface SH_Service_Interface {
 	void NewWhmst(Whmst whmst);
 
 	int checkCd(String wh_cd);
+
+	boolean same_pro_cd(String procd);
+
+	int totalprocmst();
+
+	List<Procmst> getProcmst(Procmst procmst);
+
+
+	List<Whmst> getWhmst(Whmst whmst);
+
+
+	int totalwhmst();
 
 
 }

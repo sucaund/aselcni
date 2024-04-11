@@ -16,10 +16,10 @@ public class SH_Dao implements SH_Dao_Interface {
 	private final SqlSession session;
 //공정정보리스트 가져오기
 	@Override
-	public List<Procmst> getProcmst() {
+	public List<Procmst> getProcmst(Procmst procmst) {
 		List<Procmst> getProcmst = null;
 		try {
-			getProcmst= session.selectList("HshgetProcmst");
+			getProcmst= session.selectList("HshgetProcmst",procmst);
 		} catch (Exception e) {
 			System.out.println("SH_Dao getProcmst e.getMessage()->" + e.getMessage());
 		}
@@ -49,6 +49,18 @@ public class SH_Dao implements SH_Dao_Interface {
 			return false;
 		}
 		
+	}
+	//코드중복 확인
+	@Override
+	public boolean same_pro_cd(String procd) {
+		System.out.println("SH_Dao same_Emp_Id start...");
+		try {
+			String result = session.selectOne("same_pro_cd",procd);
+			return !"Yes".equals(result);
+		} catch (Exception e) {
+			System.out.println("SH_Dao same_pro_cd e.getMessage()->" + e.getMessage());
+			return false;
+		}
 	}
 	@Override
 	public void updateProc(Procmst procmst) {
@@ -85,11 +97,15 @@ public class SH_Dao implements SH_Dao_Interface {
 		}		
 	}
 	@Override
-	public List<Whmst> getWhmst() {
+	public List<Whmst> getWhmst(Whmst whmst) {
 		List<Whmst> getWhmst = null;
+		System.out.println("!SH_Dao getStart ->" + whmst.getStart());
+		System.out.println("!SH_Dao getEnd ->" + whmst.getEnd());
+		System.out.println("!SH_Dao getCurrentPage ->" + whmst.getCurrentPage());
 		try {
-			getWhmst= session.selectList("HshgetWhmst");
+			getWhmst= session.selectList("HshgetWhmst",whmst);
 			System.out.println("!SH_Dao getWhmst ->" + getWhmst);
+			System.out.println("!SH_Dao getWhmst size!!!->" + getWhmst.size());
 
 		} catch (Exception e) {
 			System.out.println("!!SH_Dao getWhmst e.getMessage()->" + e.getMessage());
@@ -158,6 +174,33 @@ public class SH_Dao implements SH_Dao_Interface {
 		}
 		return checkWdCount;
 	}
+	@Override //페이징 작업
+	public int totalprocmst() {
+		int totalprocmst = 0;
+		System.out.println(" SH_Dao totalprocmst Start procmstTotal...");
+
+		try {
+			totalprocmst = session.selectOne("procmstTotal");
+
+		} catch (Exception e) {
+			System.out.println("SH_Dao totalprocmst procmstTotal Exception->" + e.getMessage());
+		}
+		return totalprocmst;
+	}
+	@Override
+	public int totalwhmst() {
+		int totalwhmst = 0;
+		System.out.println(" SH_Dao totalwhmst Start totalwhmst...");
+
+		try {
+			totalwhmst = session.selectOne("totalwhmst");
+
+		} catch (Exception e) {
+			System.out.println("SH_Dao totalwhmst totalwhmst Exception->" + e.getMessage());
+		}
+		return totalwhmst;
+	}
+	
 	/*
 	 * @Override public boolean same_Whcode(String wh_cd) {
 	 * System.out.println("SH_Dao same_Whcode start..."); try { String result =
